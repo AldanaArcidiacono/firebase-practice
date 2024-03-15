@@ -1,9 +1,10 @@
 <template>
   <div>
-    <h2>Login</h2>
+    <h2 class="mt-4 mx-5">Login</h2>
+    <RegisterLoginForm></RegisterLoginForm>
   </div>
 </template>
 
-<script setup></script>
-
-<style lang="scss" scoped></style>
+<script setup>
+import RegisterLoginForm from '../components/RegisterLoginForm.vue';
+</script>
