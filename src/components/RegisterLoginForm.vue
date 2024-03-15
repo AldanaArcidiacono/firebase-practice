@@ -29,6 +29,8 @@ import { useRoute } from 'vue-router';
 const userStore = useUserStore();
 const route = useRoute();
 
+const isLogin = ref(false);
+
 const email = ref('');
 const password = ref('');
 
@@ -38,15 +40,14 @@ const handleSubmit = async () => {
   if (!email.value || password.value.length < 6) {
     return alert('Complete the files');
   }
-  if (route.name === 'login') {
-    await userStore.loginUser(email.value, password.value);
-  } else if (route.name === 'register') {
-    await userStore.registerUser(email.value, password.value);
-  }
+  if (isLogin) await userStore.loginUser(email.value, password.value);
+  else await userStore.registerUser(email.value, password.value);
 };
 
 onMounted(() => {
-  btnText.value = route.name === 'login' ? 'Login' : 'Add user';
+  isLogin.value = route.path === '/login' ? true : false;
+
+  btnText.value = isLogin.value === true ? 'Login' : 'Add User';
 });
 </script>
 

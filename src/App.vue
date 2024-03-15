@@ -15,7 +15,7 @@
             {{ nav.tag }}
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="userStore.userData">
           <button
             class="btn btn-outline-danger btn-sm"
             @click="userStore.logoutUser"
@@ -31,21 +31,22 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useUserStore } from './stores/user';
 import { useRoute } from 'vue-router';
 
 const userStore = useUserStore();
 const route = useRoute();
 
-const navBar = ref([]);
-
-onMounted(() => {
-  navBar.value = [
-    { url: '/', tag: 'Home' },
-    { url: '/login', tag: 'Login' },
-    { url: '/register', tag: 'Register' },
-  ];
+const navBar = computed(() => {
+  const out = [];
+  if (!userStore.userData)
+    out.push(
+      { url: '/login', tag: 'Login' },
+      { url: '/register', tag: 'Register' }
+    );
+  else out.push({ url: '/', tag: 'Home' });
+  return out;
 });
 </script>
 
