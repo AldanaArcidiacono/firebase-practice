@@ -11,9 +11,11 @@ import { useRouter } from 'vue-router';
 export const useUserStore = defineStore('user', () => {
   const router = useRouter();
 
+  const loading = ref(false);
   const userData = ref(null);
 
   const registerUser = async (email, password) => {
+    loading.value = true;
     try {
       // createUserWithEmailAndPassword has a .user property. We destructure to use it.
       const { user } = await createUserWithEmailAndPassword(
@@ -28,10 +30,13 @@ export const useUserStore = defineStore('user', () => {
       console.log(userData.value);
     } catch (error) {
       console.log(error);
+    } finally {
+      loading.value = false;
     }
   };
 
   const loginUser = async (email, password) => {
+    loading.value = true;
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password);
 
@@ -41,10 +46,13 @@ export const useUserStore = defineStore('user', () => {
       console.log(userData.value);
     } catch (error) {
       console.log(error);
+    } finally {
+      loading.value = false;
     }
   };
 
   const logoutUser = async () => {
+    loading.value = true;
     try {
       await signOut(auth);
       userData.value = null;
@@ -53,10 +61,13 @@ export const useUserStore = defineStore('user', () => {
       console.log(userData.value);
     } catch (error) {
       console.log(error);
+    } finally {
+      loading.value = false;
     }
   };
 
   return {
+    loading,
     userData,
     registerUser,
     loginUser,
