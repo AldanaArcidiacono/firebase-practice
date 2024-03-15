@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Login</h2>
+    <h2 class="mt-4 mx-5">Login</h2>
     <form class="my-2 mx-5" @submit.prevent="handleSubmit">
       <label for="email" class="form-label">Email</label>
       <input

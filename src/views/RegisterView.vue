@@ -45,5 +45,3 @@ const handleSubmit = async () => {
   router.push('/');
 };
 </script>
-
-<style lang="scss" scoped></style>
