@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import { ref } from 'vue';
@@ -66,6 +67,26 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
+  // onAuthStateChanged isn't a promise, so we create one
+  const currentUser = () => {
+    return new Promise((resolve, reject) => {
+      const unsubscribe = onAuthStateChanged(
+        auth,
+        (user) => {
+          if (user) userData.value = { email: user.email, uid: user.uid };
+          else userData.value = null;
+
+          resolve(user);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+
+      return unsubscribe;
+    });
+  };
+
   return {
     userData,
     loading,
@@ -73,5 +94,6 @@ export const useUserStore = defineStore('user', () => {
     registerUser,
     loginUser,
     logoutUser,
+    currentUser,
   };
 });

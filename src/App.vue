@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed } from 'vue';
 import { useUserStore } from './stores/user';
 import { useRoute } from 'vue-router';
 
@@ -39,13 +39,14 @@ const userStore = useUserStore();
 const route = useRoute();
 
 const navBar = computed(() => {
-  const out = [];
+  // const out = [];
+  const out = [{ url: '/', tag: 'Home' }];
   if (!userStore.userData)
     out.push(
       { url: '/login', tag: 'Login' },
       { url: '/register', tag: 'Register' }
     );
-  else out.push({ url: '/', tag: 'Home' });
+  // else out.push({ url: '/', tag: 'Home' });
   return out;
 });
 </script>
