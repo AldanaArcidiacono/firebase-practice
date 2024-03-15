@@ -8,12 +8,14 @@ const requireAuth = async (to, from, next) => {
   // When we want to initialize a store in a file outside the components,
   // we must do it inside a function.
   const userStore = useUserStore();
+  userStore.loadingSession = true;
 
   const user = await userStore.currentUser();
 
   // With the 'next' we send the user to the route we want
   if (user) next();
   else next('/login');
+  userStore.loadingSession = false;
 };
 
 const routes = [

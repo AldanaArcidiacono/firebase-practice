@@ -13,6 +13,7 @@ export const useUserStore = defineStore('user', () => {
   const router = useRouter();
 
   const loading = ref(false);
+  const loadingSession = ref(false);
   const userData = ref(null);
 
   const registerUser = async (email, password) => {
@@ -91,6 +92,8 @@ export const useUserStore = defineStore('user', () => {
     userData,
     loading,
     userData,
+    loadingSession,
+
     registerUser,
     loginUser,
     logoutUser,

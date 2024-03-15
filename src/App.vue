@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>App Title</h1>
-    <nav>
+    <h1 class="m-2">App Title</h1>
+    <nav v-if="!userStore.loadingSession" class="m-2">
       <ul class="nav nav-underline d-flex align-items-center">
         <li class="nav-item" v-for="nav of navBar">
           <router-link
@@ -26,6 +26,8 @@
       </ul>
     </nav>
 
+    <div v-else class="spinner-border spinner-border-sm" role="status"></div>
+
     <router-view></router-view>
   </div>
 </template>
@@ -39,14 +41,13 @@ const userStore = useUserStore();
 const route = useRoute();
 
 const navBar = computed(() => {
-  // const out = [];
-  const out = [{ url: '/', tag: 'Home' }];
+  const out = [];
   if (!userStore.userData)
     out.push(
       { url: '/login', tag: 'Login' },
       { url: '/register', tag: 'Register' }
     );
-  // else out.push({ url: '/', tag: 'Home' });
+  else out.push({ url: '/', tag: 'Home' });
   return out;
 });
 </script>
