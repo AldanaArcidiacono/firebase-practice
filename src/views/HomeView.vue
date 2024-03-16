@@ -7,8 +7,12 @@
 
 <script setup>
 import { useUserStore } from '../stores/user';
+import { useUrlsStore } from '../stores/urls';
 
 const userStore = useUserStore();
+const urlsStore = useUrlsStore();
+
+urlsStore.getUrls();
 </script>
 
 <style lang="scss" scoped></style>

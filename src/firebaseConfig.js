@@ -2,6 +2,10 @@
 import { initializeApp } from 'firebase/app';
 //
 import { getAuth } from 'firebase/auth';
+//
+// Get our collections from FireStore
+// For a compact library with REST/CRUD, we use FireStore Lite SDK. Available only via npm.
+import { getFirestore } from 'firebase/firestore/lite';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -18,5 +22,7 @@ const app = initializeApp(firebaseConfig);
 
 // User login & register config
 const auth = getAuth();
+// DB config
+const db = getFirestore();
 
-export { auth };
+export { auth, db };
