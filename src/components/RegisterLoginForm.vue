@@ -40,8 +40,11 @@ const handleSubmit = async () => {
   if (!email.value || password.value.length < 6) {
     return alert('Complete the files');
   }
-  if (isLogin) await userStore.loginUser(email.value, password.value);
-  else await userStore.registerUser(email.value, password.value);
+  if (isLogin.value) {
+    await userStore.loginUser(email.value, password.value);
+  } else {
+    await userStore.registerUser(email.value, password.value);
+  }
 };
 
 onMounted(() => {
